@@ -1,0 +1,115 @@
+<div class="header bg-gradient-danger pb-7 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+    </div>
+  </div>
+</div>
+
+<!--Modal To add new team -->
+<div class="col-md-4">
+  <ng-template #addTeamsFormModal let-c="close" let-d="dismiss">
+    <app-add-teams-form (modalDismissEmitter)="d($event)" (modalCloseEmitter)="c($event)"></app-add-teams-form>
+  </ng-template>
+</div>
+
+<!--Modal To edit existing team -->
+<div class="col-md-4">
+  <ng-template #editTeamsFormModal let-c="close" let-d="dismiss">
+    <app-edit-team-form (modalDismissEmitter)="d($event)" (modalCloseEmitter)="c($event)"></app-edit-team-form>
+  </ng-template>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <h3 class="mb-0">Teams For League : </h3>
+                </div>
+                <div class="col text-right">
+                  <form>
+                    <label class="form-control-label" for="input-league-name">League Name</label>
+                    <select class="form-control" data-toggle="select" title="Choose League"
+                            data-live-search="true"
+                            (change)="selectedLeagueIdChange($event)"
+                            data-live-search-placeholder="Search ...">
+                      <option *ngFor="let l of this.leagueDetailsList" value="{{l.leagueId}}">{{l.leagueName}}</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col text-right">
+              <button class="btn btn-primary" (click)="this.openModal(addTeamsFormModal, 'AddTeam', 'sm')">Add Team
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive pb-4">
+          <div class="alert alert-success alert-dismissible fade show" *ngIf="alertMessage" role="alert">
+            <strong>{{alertMessage}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Team Name</th>
+              <th scope="col">Team Manager</th>
+              <th scope="col">Home Ground Venue</th>
+              <th scope="col">No. Of Players</th>
+              <th scope="col">Rank No.</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let x of teamDetailsList">
+              <th scope="row">
+                <div class="media align-items-center">
+                  <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                    <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                  </a>
+                  <div class="media-body">
+                    <span class="mb-0 text-sm">{{x.teamName}}</span>
+                  </div>
+                </div>
+              </th>
+              <td>
+                {{x.teamManagerName}}
+              </td>
+              <td>
+                {{x.homeGroundVenueName}}
+              </td>
+              <td>
+                {{x.numberOfPlayers}}
+              </td>
+              <td>
+                {{x.rankNumber}}
+              </td>
+              <td class="text-right">
+                <div ngbDropdown placement="left">
+                  <a class="btn btn-sm btn-icon-only text-darker" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </a>
+                  <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                    <a class="dropdown-item" (click)="onEditSingleTeamClick(editTeamsFormModal,x)">Edit</a>
+                    <a class="dropdown-item bg-danger text-white" (click)="onDeleteSingleTeamClick(x)">Delete</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
