@@ -1,0 +1,110 @@
+<div class="header bg-gradient-danger pb-7 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row">
+
+    <div class="col-12">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Create New League</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form #createLeagueForm="ngForm" (ngSubmit)="this.createLeague(createLeagueForm)">
+            <div class="pl-lg-2">
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-league-name">League Name</label>
+                    <input type="text" id="input-league-name" class="form-control form-control-alternative"
+                           placeholder="League Name" required minlength="3" name="leagueName" ngModel
+                           #leagueName="ngModel">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-number-of-teams">Number Of Teams</label>
+                    <input type="number" id="input-number-of-teams" class="form-control form-control-alternative"
+                           placeholder="Number Of Teams" required name="numberOfTeams" ngModel #numberOfTeams="ngModel">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-end-date">League Start Date</label>
+                    <input type="date" id="input-start-date" class="form-control form-control-alternative"
+                           placeholder="League Start Date" required name="startDate" ngModel #startDate="ngModel">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-end-date">League End Date</label>
+                    <input type="date" id="input-end-date" class="form-control form-control-alternative"
+                           placeholder="League End Date" required name="endDate" ngModel #endDate="ngModel">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-success my-2">Create League</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-4">
+      <div class="card bg-secondary shadow">
+        <div class="card-header bg-white border-0">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <h3 class="mb-0">List Of All Leagues</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive pb-4">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">League Name</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">Start End</th>
+              <th scope="col">Number Of Teams</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let x of this.leagueDetailsList">
+              <th scope="row">
+                {{x.leagueName}}
+              </th>
+              <td>
+                {{x.startDate}}
+              </td>
+              <td>
+                {{x.endDate}}
+              </td>
+              <td>
+                {{x.numberOfTeams}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
